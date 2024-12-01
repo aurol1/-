@@ -3,4 +3,4 @@ I2 = imread("3.jpg");
 figure;
 imshow(I2);
 title('原图');
-robert = lapulasi(I2);
+lbp = hog(I2);
