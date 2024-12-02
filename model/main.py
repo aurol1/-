@@ -1,11 +1,8 @@
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 from tensorflow import keras
 import matplotlib.pyplot as plt
 import numpy as np
 import glob
-
 imgs_path = glob.glob(r'D:\pythonMat\archive\CUB_200_2011\CUB_200_2011\images\*\*.jpg')
 all_labels_name = [imgs_p.split('\\')[6].split('.')[1] for imgs_p in imgs_path]
 label_names = np.unique(all_labels_name)
@@ -37,13 +34,17 @@ def load_img(path,label):
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 train_ds = train_ds.map(load_img,num_parallel_calls=AUTOTUNE)
 test_ds = test_ds.map(load_img,num_parallel_calls=AUTOTUNE)
-BATCH_SIZE = 8
+BATCH_SIZE = 4
 train_ds = train_ds.repeat().shuffle(300).batch(BATCH_SIZE)
 test_ds = test_ds.batch(BATCH_SIZE)
+
+train_ds = train_ds.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
+test_ds = test_ds.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
+
 model = tf.keras.Sequential()
-model.add(tf.keras.layers.Conv2D(64,(3,3),input_shape=(256,256,3),activation='relu'))
+model.add(tf.keras.layers.Conv2D(32,(3,3),input_shape=(256,256,3),activation='relu'))
 model.add(tf.keras.layers.BatchNormalization())
-model.add(tf.keras.layers.Conv2D(64,(3,3),activation='relu'))
+model.add(tf.keras.layers.Conv2D(32,(3,3),activation='relu'))
 model.add(tf.keras.layers.BatchNormalization())
 model.add(tf.keras.layers.MaxPool2D())
 model.add(tf.keras.layers.Conv2D(128,(3,3),activation='relu'))
@@ -70,10 +71,12 @@ model.add(tf.keras.layers.Dense(1024,activation='relu'))
 model.add(tf.keras.layers.BatchNormalization())
 model.add(tf.keras.layers.Dense(200))
 #model.summary()
+
 model.compile(optimizer=tf.keras.optimizers.Adam(0.0001),loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),metrics=['acc'])
 train_steps_per_epoch = len(train_path) // BATCH_SIZE
 test_steps_per_epoch = len(test_path) // BATCH_SIZE
-history = model.fit(train_ds,epochs=10,steps_per_epoch=train_steps_per_epoch,validation_data=test_ds,validation_steps=test_steps_per_epoch)
+with tf.device('/GPU:0'):
+    history = model.fit(train_ds,epochs=15,steps_per_epoch=train_steps_per_epoch,validation_data=test_ds,validation_steps=test_steps_per_epoch)
 plt.plot(history.epoch,history.history.get('acc'),label='acc')
 plt.plot(history.epoch,history.history.get('val_acc'),label='val_acc')
 plt.legend()
@@ -82,5 +85,6 @@ plt.plot(history.epoch,history.history.get('loss'),label='loss')
 plt.plot(history.epoch,history.history.get('val_loss'),label='val_loss')
 plt.legend()
 plt.show()
-model.save('model_birds')
+filepath = r'D:\pythonMat\model_birds'
+model.save("model_birds", save_format='h5')
 
