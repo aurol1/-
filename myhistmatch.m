@@ -38,7 +38,7 @@ for i=1:h
        histmatch (i,j)=data_1(img(i,j)+1);
     end
 end
-mygraypram(histmatch);
-title('匹配')
+histmatch = mygraypram(histmatch);
+
 
 

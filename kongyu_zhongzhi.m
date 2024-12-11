@@ -9,6 +9,4 @@ for i=2:h-1
         kongyuimg(i,j)=median(neighbor(:));   %中值滤波
     end
 end
-figure;
-imshow(kongyuimg);
-title('空域中值滤波');
+%空域中值

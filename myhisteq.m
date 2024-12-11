@@ -21,7 +21,5 @@ end
 for i=0:255  
     histeq(i+1)=sum(p(a==i));            
 end
-figure;
-bar(0:255,histeq,'b')
-title('灰度直方图均衡化');
+
 

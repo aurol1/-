@@ -13,6 +13,4 @@ J=fftshift(fft2(img,size(H,1),size(H,2)));%通过傅里叶变换将时域图像�
 K=J.*H;                         %滤波处理
 pinyuimg=ifft2(ifftshift(K));          %傅里叶反转换
 pinyuimg=pinyuimg(1:h,1:w);                   %设置图像的大小
-figure;
-imshow(pinyuimg);
-title('频域低通滤波');
+%频域低通

@@ -27,6 +27,4 @@ for di = 1:dh
     end
 end
 resizeimg = uint8(resizeimg);
-figure;
-imshow(resizeimg);
-title('缩放图像');
+%缩放

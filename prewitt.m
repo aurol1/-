@@ -13,6 +13,4 @@ for j=2:h-1 %进行边界提取
         end
     end
 end
-figure;
-imshow(prewittimg);
-title('prewitt');
+%prewitt

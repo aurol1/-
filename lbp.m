@@ -26,6 +26,4 @@ for i=2:h-1
     end
 end
 lbpimg=uint8(lbpimg);
-figure;
-imshow(lbpimg);
-title('lbp');
+%lbp

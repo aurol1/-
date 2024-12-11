@@ -8,7 +8,5 @@ for i =1:h
         histgram(k+1) = histgram(k+1)+1;
     end
 end
-figure;
-bar(histgram)
-title('灰度直方图');
+
 

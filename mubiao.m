@@ -1,8 +1,8 @@
 function mubiaoimg = mubiao(img,bg)
-[row,col,~] = size(bg);
-img = imresize(img,[row,col]);
-mubiaoimg = imsubtract(img,bg);
-mubiaoimg(mubiaoimg<0) = 0;
-figure;
-imshow(mubiaoimg);
-title('目标提取');
+img = im2double(img);
+bg = im2double(bg);
+[rows, cols,~] = size(img);
+bg = imresize(bg, [rows, cols]);
+bg = repmat(bg, [1, 1, 3]);
+mubiaoimg = img.*bg;
+%提取目标

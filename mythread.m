@@ -5,6 +5,3 @@ b1 = 255;%线性变换后的范围
 minGray = min(min(img));
 maxGray = max(max(img));
 threadimg = a1+(b1-a1)/(maxGray-minGray)*(img-minGray);
-figure;
-imshow(threadimg);
-title('线性增强');

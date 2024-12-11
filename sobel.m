@@ -13,6 +13,4 @@ for j=2:h-1
         end
     end
 end
-figure;
-imshow(sobelimg);
-title('sobel');
+%sobel

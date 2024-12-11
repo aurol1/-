@@ -13,6 +13,4 @@ for j=1:h-1
         end
     end
 end
-figure;
-imshow(robertimg);
-title('robert');
+%robert

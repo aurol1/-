@@ -1,8 +1,11 @@
-function jiaoyan_img = jiaoyan(img,a,b)
+%function jiaoyan_img = jiaoyan(img,a,b)
+function jiaoyan_img = jiaoyan(img)
 [w,h,r]=size(img);
 jiaoyan_img = img;
-k1=a;
-k2=b;
+% k1=a;
+% k2=b;
+k1=0.2;
+k2=0.2;
 a1=rand(w,h)<k1;
 a2=rand(w,h)<k2;
 t1=jiaoyan_img(:,:,1);
@@ -17,6 +20,4 @@ t3(a1& ~a2)=255;
 jiaoyan_img(:,:,1)=t1;
 jiaoyan_img(:,:,2)=t2;
 jiaoyan_img(:,:,3)=t3;
-figure;
-imshow(jiaoyan_img);
-title('椒盐噪声');
+%椒盐
