@@ -1,11 +1,8 @@
-%function jiaoyan_img = jiaoyan(img,a,b)
-function jiaoyan_img = jiaoyan(img)
+function jiaoyan_img = jiaoyan(img,a,b)
 [w,h,r]=size(img);
 jiaoyan_img = img;
-% k1=a;
-% k2=b;
-k1=0.2;
-k2=0.2;
+k1=a;
+k2=b;
 a1=rand(w,h)<k1;
 a2=rand(w,h)<k2;
 t1=jiaoyan_img(:,:,1);

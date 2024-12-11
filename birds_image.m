@@ -22,7 +22,7 @@ function varargout = birds_image(varargin)
 
 % Edit the above text to modify the response to help birds_image
 
-% Last Modified by GUIDE v2.5 11-Dec-2024 14:29:54
+% Last Modified by GUIDE v2.5 11-Dec-2024 20:04:21
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -428,7 +428,9 @@ function pushbutton12_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 cla(handles.axes1);
 image = handles.image;
-image = jiaoyan(image);
+jiaoyan_a = str2double(get(handles.edit10,'String'));
+jiaoyan_b = str2double(get(handles.edit11,'String'));
+image = jiaoyan(image,jiaoyan_a,jiaoyan_b);
 handles.zaosheng = image;
 guidata(hObject,handles);
 set(handles.edit3,'string',"椒盐噪声");
@@ -439,7 +441,9 @@ imshow(image);
 function pushbutton13_Callback(hObject, eventdata, handles)
 cla(handles.axes1);
 image = handles.image;
-image = gaosi(image);
+gaosi_a = str2double(get(handles.edit12,'String'));
+gaosi_b = str2double(get(handles.edit13,'String'));
+image = gaosi(image,gaosi_a,gaosi_b);
 set(handles.edit3,'string',"高斯噪声");
 axes(handles.axes1);
 imshow(image);
@@ -516,6 +520,8 @@ function pushbutton19_Callback(hObject, eventdata, handles)
 image = handles.image;
 bg = handles.bg;
 mubiaoimg = mubiao(image,bg);
+handles.mubiao = mubiaoimg;
+guidata(hObject,handles);
 cla(handles.axes4);
 set(handles.edit4,'string',"目标");
 axes(handles.axes4);
@@ -543,7 +549,7 @@ image = hog(handles.image);
 cla(handles.axes4);
 set(handles.edit4,'string',"hog边缘提取");
 axes(handles.axes4);
-plot(image);
+mesh(image)
 % hObject    handle to pushbutton21 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -586,5 +592,154 @@ cla(handles.axes5);
 axes(handles.axes5);
 imshow(bg);
 % hObject    handle to pushbutton24 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+
+function edit10_Callback(hObject, eventdata, handles)
+jiaoyan_a = str2num(get(hObject,'String'));
+guidata(hObject,handles);
+% hObject    handle to edit10 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit10 as text
+%        str2double(get(hObject,'String')) returns contents of edit10 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit10_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit10 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit11_Callback(hObject, eventdata, handles)
+jiaoyan_b = str2num(get(hObject,'String'));
+guidata(hObject,handles);
+% hObject    handle to edit11 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit11 as text
+%        str2double(get(hObject,'String')) returns contents of edit11 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit11_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit11 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit12_Callback(hObject, eventdata, handles)
+gaosi_a = str2num(get(hObject,'String'));
+guidata(hObject,handles);
+% hObject    handle to edit12 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit12 as text
+%        str2double(get(hObject,'String')) returns contents of edit12 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit12_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit12 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit13_Callback(hObject, eventdata, handles)
+gaosi_b = str2num(get(hObject,'String'));
+guidata(hObject,handles);
+% hObject    handle to edit13 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit13 as text
+%        str2double(get(hObject,'String')) returns contents of edit13 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit13_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit13 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in pushbutton26.
+function pushbutton26_Callback(hObject, eventdata, handles)
+image = lapulasi(handles.image);
+cla(handles.axes4);
+set(handles.edit4,'string',"拉普拉斯边缘提取");
+axes(handles.axes4);
+imshow(image);
+% hObject    handle to pushbutton26 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in pushbutton27.
+function pushbutton27_Callback(hObject, eventdata, handles)
+mubiao = lbp(handles.mubiao);
+cla(handles.axes4);
+set(handles.edit4,'string',"目标lbp边缘提取");
+axes(handles.axes4);
+imshow(mubiao);
+% hObject    handle to pushbutton27 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in pushbutton28.
+function pushbutton28_Callback(hObject, eventdata, handles)
+mubiao = hog(handles.mubiao);
+cla(handles.axes4);
+set(handles.edit4,'string',"hog边缘提取");
+axes(handles.axes4);
+plot(mubiao);
+% hObject    handle to pushbutton28 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in pushbutton29.
+function pushbutton29_Callback(hObject, eventdata, handles)
+cla(handles.axes1);
+image = handles.image;
+image = posong(image);
+set(handles.edit3,'string',"泊松噪声");
+axes(handles.axes1);
+imshow(image);
+% hObject    handle to pushbutton29 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
