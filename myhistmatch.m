@@ -22,7 +22,7 @@ for i=1:256
     end
 end
 data_1=zeros(1,256);
-%sml
+
 for i=1:256
     min=abs(p_1(i)-p_2(1));
     for j=2:256

@@ -13,25 +13,25 @@ Iphase=Iy./Ix;
 step=16;                %step*step个像素作为一个单元
 orient=9;               %方向直方图的方向个数
 jiao=360/orient;        %每个方向包含的角度数
-Cell=cell(1,1);              %所有的角度直方图,cell是可以动态增加的，所以先设了一个
+Cell=cell(1,1);            
 ii=1;                      
 jj=1;
-for i=1:step:h-step+1          %如果处理的m/step不是整数，最好是i=1:step:m-step
+for i=1:step:h-step+1          
     ii=1;
-    for j=1:step:w-step+1      %注释同上
+    for j=1:step:w-step+1     
         tmpx=Ix(i:i+step-1,j:j+step-1);
         tmped=Ied(i:i+step-1,j:j+step-1);
         tmped=tmped/sum(sum(tmped));        %局部边缘强度归一化
         tmpphase=Iphase(i:i+step-1,j:j+step-1);
-        Hist=zeros(1,orient);               %当前step*step像素块统计角度直方图,就是cell
+        Hist=zeros(1,orient);               
         for p=1:step
             for q=1:step
                 if isnan(tmpphase(p,q))==1  %0/0会得到nan，如果像素是nan，重设为0
                     tmpphase(p,q)=0;
                 end
-                ang=atan(tmpphase(p,q));    %atan求的是[-90 90]度之间
+                ang=atan(tmpphase(p,q));    
                 ang=mod(ang*180/pi,360);    %全部变正，-90变270
-                if tmpx(p,q)<0              %根据x方向确定真正的角度
+                if tmpx(p,q)<0             
                     if ang<90               %如果是第一象限
                         ang=ang+180;        %移到第三象限
                     end
@@ -39,15 +39,15 @@ for i=1:step:h-step+1          %如果处理的m/step不是整数，最好是i=1
                         ang=ang-180;        %移到第二象限
                     end
                 end
-                ang=ang+0.0000001;          %防止ang为0
+                ang=ang+0.0000001;          
                 Hist(ceil(ang/jiao))=Hist(ceil(ang/jiao))+tmped(p,q);   %ceil向上取整，使用边缘强度加权
             end
         end
         Hist=Hist/sum(Hist);    %方向直方图归一化
-        Cell{ii,jj}=Hist;       %放入Cell中
-        ii=ii+1;                %针对Cell的y坐标循环变量
+        Cell{ii,jj}=Hist;       
+        ii=ii+1;                
     end
-    jj=jj+1;                    %针对Cell的x坐标循环变量
+    jj=jj+1;                    
 end
 
 [m,n]=size(Cell);

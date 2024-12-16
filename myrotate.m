@@ -1,7 +1,7 @@
 function im = myrotate(img,angle)
 [m,n,d] = size(img); 
         
-% 由于matlab中cos，sin角度为弧度，故进行转换
+% 角度转换
 a = angle*pi/180;
 
 % 原图像四个顶点行坐标、列坐标(逆时针)
@@ -14,13 +14,11 @@ y = [c1,c2,c3,c4];
 x1 = round(x*cos(a)-y*sin(a));
 y1 = round(x*sin(a)+y*cos(a));
 
-% 计算x1 y1的最大、最小值
 x1_max = max(x1);
 y1_max = max(y1);
 x1_min = min(x1);
 y1_min = min(y1);
 
-% 得出画布扩展后的大小为m2,n2
 m2 = x1_max - x1_min + 1;
 n2 = y1_max - y1_min + 1;
 
@@ -37,7 +35,7 @@ else
 end
 
 % 初始化新图矩阵
-im = ones(m2,n2,d)*(-1); % 要进行黑洞填充为判断非背景点，画布初始化-1(非法值)
+im = ones(m2,n2,d)*(-1); 
 
 % 对原图的每一行，每一列,根据旋转公式和平移量，得原新图对应坐标
 for i=1:m
@@ -51,10 +49,8 @@ end
 % 进行插值--R通道
 im_1 = im(:,:,1);
 
-% 对新图的每一行
 for i=1:m2
-    % 找出新图第i行所有非背景点的行列坐标
-    [x_1,y_1] = find(im_1(i,:)>0); % 找出所有大于0的点
+    [x_1,y_1] = find(im_1(i,:)>0); 
     
     % 求第i行所有非背景点的列坐标的起止值
     y1_min = min(y_1);
@@ -62,7 +58,6 @@ for i=1:m2
     
     % 在(y1_min,y_1max)范围内进行插值,对y1_min,y_1max之间的每一个像素点
     for j=y1_min+1:y1_max
-        % 若为背景点，将前一个点赋给该点
         if(im(i,j)<0)
             im(i,j,:)=im(i,j-1,:);
         end

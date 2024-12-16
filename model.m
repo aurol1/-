@@ -5,21 +5,19 @@ data_str = '0: ''Acadian_Flycatcher'', 1: ''American_Crow'', 2: ''American_Goldf
 pattern = '(\d+): ''([^'']+)''';
 matches = regexp(data_str, pattern, 'tokens');
 
-% 创建一个空的 containers.Map 对象
 map = containers.Map();
 
-% 将提取的键值对插入到 Map 中
 for i = 1:length(matches)
     key = matches{i}{1};  % 转换键为数字
-    value = matches{i}{2};            % 获取值
-    map(key) = value;                 % 将键值对插入 Map
+    value = matches{i}{2}; % 获取值
+    map(key) = value;      % 将键值对插入 Map
 end
 
 
 
 net = importKerasNetwork("D:\pythonMat\model\model_birds2.h5");
 
-targetSize = [256, 256]; % 根据模型期望的输入大小进行调整
+targetSize = [256, 256]; 
 img = imresize(img, targetSize);
 
 output = predict(net,img);
