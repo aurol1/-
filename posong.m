@@ -1,3 +1,3 @@
 function posongimg = posong(img)
-posongimg=c;
+posongimg=imnoise(img,'poisson');
 %泊松
