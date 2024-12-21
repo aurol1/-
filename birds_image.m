@@ -12,7 +12,7 @@ function varargout = birds_image(varargin)
 %      BIRDS_IMAGE('Property','Value',...) creates a new BIRDS_IMAGE or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
 %      applied to the GUI before birds_image_OpeningFcn gets called.  An
-%      unrecognized property name or invalid value makes property application
+%      unrecognized property namfe or invalid value makes property application
 %      stop.  All inputs are passed to birds_image_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
@@ -737,6 +737,8 @@ function pushbutton29_Callback(hObject, eventdata, handles)
 cla(handles.axes1);
 image = handles.image;
 image = posong(image);
+handles.zaosheng = image;
+guidata(hObject,handles);
 set(handles.edit3,'string',"泊松噪声");
 axes(handles.axes1);
 imshow(image);
