@@ -22,7 +22,7 @@ function varargout = birds_image(varargin)
 
 % Edit the above text to modify the response to help birds_image
 
-% Last Modified by GUIDE v2.5 11-Dec-2024 20:04:21
+% Last Modified by GUIDE v2.5 23-Dec-2024 13:03:54
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -743,5 +743,22 @@ set(handles.edit3,'string',"泊松噪声");
 axes(handles.axes1);
 imshow(image);
 % hObject    handle to pushbutton29 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in pushbutton30.
+function pushbutton30_Callback(hObject, eventdata, handles)
+visualization = hog_tezheng(handles.image);
+grayImage = rgb2gray(handles.image);
+set(handles.edit4,'string',"hog边缘叠加");
+axes(handles.axes4);
+imshow(grayImage);
+hold on; % 保持当前图像
+    
+% 在原始图像上叠加 HOG 特征可视化
+plot(visualization, 'Color', 'red');
+hold off; % 释放当前图像
+% hObject    handle to pushbutton30 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
